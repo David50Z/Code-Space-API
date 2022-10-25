@@ -24,14 +24,14 @@ public class UserService {
         User user = userRepository.findById(1L).orElseThrow(() ->
                 new IllegalStateException("No user found")
                 );
-        user.sources.add(new Source(
+        /*user.sources.add(new Source(
                 1L,
                 "url",
                 "img",
                 "high",
                 5
         ));
-        userRepository.save(user);
+        userRepository.save(user);*/
         return userRepository.findAll();
     }
 
@@ -81,5 +81,14 @@ public class UserService {
             System.out.println("Index probably went out of bounds.");
         }
 
+    }
+
+    public void addSource(Long id, Source source) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("No user found")
+        );
+
+        user.sources.add(source);
+        userRepository.save(user);
     }
 }

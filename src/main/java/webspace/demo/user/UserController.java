@@ -39,4 +39,12 @@ public class UserController {
                 index
         );
     }
+
+    @PostMapping(path = "{id}")
+    public void addResource(
+            @PathVariable("id") Long id,
+            @RequestBody Source source
+    ) {
+        userService.addSource(id, source);
+    }
 }
