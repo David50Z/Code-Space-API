@@ -47,4 +47,19 @@ public class UserController {
     ) {
         userService.addSource(id, source);
     }
+
+    @DeleteMapping(path = "{id}")
+    public void removeUser(
+            @PathVariable("id") Long id
+    ) {
+        userService.removeUser(id);
+    }
+
+    @DeleteMapping(path = "{id}/{index}")
+    public void removeResource(
+            @PathVariable("id") Long id,
+            @PathVariable("index") int index
+    ) {
+        userService.removeResource(id, index);
+    }
 }

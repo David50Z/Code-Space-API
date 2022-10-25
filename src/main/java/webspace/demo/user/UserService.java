@@ -21,10 +21,10 @@ public class UserService {
 
     public List<User> getUsers()
     {
-        User user = userRepository.findById(1L).orElseThrow(() ->
+       /* User user = userRepository.findById(1L).orElseThrow(() ->
                 new IllegalStateException("No user found")
                 );
-        /*user.sources.add(new Source(
+        user.sources.add(new Source(
                 1L,
                 "url",
                 "img",
@@ -89,6 +89,26 @@ public class UserService {
         );
 
         user.sources.add(source);
+        userRepository.save(user);
+    }
+
+    public void removeUser(Long id) {
+        boolean exists = userRepository.existsById(id);
+
+        if(!exists) {
+            throw new IllegalStateException("Student with id " +
+                    id + " Does not exist");
+        }
+
+        userRepository.deleteById(id);
+    }
+
+    public void removeResource(Long id, int index) {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("No user found")
+        );
+
+        user.sources.remove(index);
         userRepository.save(user);
     }
 }

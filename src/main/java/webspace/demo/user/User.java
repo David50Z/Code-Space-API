@@ -29,13 +29,7 @@ public class User {
     //@OneToOne(cascade=CascadeType.PERSIST) <or> @OneToOne(cascade=CascadeType.ALL) <-- for all operation
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "source", referencedColumnName = "id")
-    public List<Source> sources; /*= Arrays.asList(
-            new Source(
-            "url",
-            "img",
-            "high",
-            5
-        ));*/
+    public List<Source> sources;
 
     private String preferedStyle;
 
