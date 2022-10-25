@@ -1,10 +1,13 @@
 package webspace.demo.user;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table
 public class User {
+
 
     @Id
     @SequenceGenerator(
@@ -23,7 +26,16 @@ public class User {
     private String email;
     private String password;
 
-    public Source[] sources = new Source[1];
+    //@OneToOne(cascade=CascadeType.PERSIST) <or> @OneToOne(cascade=CascadeType.ALL) <-- for all operation
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "source", referencedColumnName = "id")
+    public List<Source> sources; /*= Arrays.asList(
+            new Source(
+            "url",
+            "img",
+            "high",
+            5
+        ));*/
 
     private String preferedStyle;
 
@@ -34,28 +46,36 @@ public class User {
             String email,
             String password,
             String preferedStyle
+            //Source[] source
     ) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.preferedStyle = preferedStyle;
+        //this.sources = source;
     }
 
     public User(
             String name,
             String email,
             String password,
-            String preferedStyle
+            String preferedStyle,
+            List<Source> source
     ) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.preferedStyle = preferedStyle;
+        this.sources = source;
     }
 
     public User() {
 
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -72,7 +92,7 @@ public class User {
 
     public String getPreferedStyle() {return preferedStyle;}
 
-    public Source[] getSources() {
+    public List<Source> getSources() {
         return sources;
     }
 }
