@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "users")
 public class UserController {
     private final UserService userService;
@@ -15,37 +16,91 @@ public class UserController {
         this.userService = userService;
     }
 
+    //@CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
     public List<User> getUsers() {
         return userService.getUsers();
     }
 
-    @PostMapping
+    @PutMapping(path = "{id}/{playlistId}/{videoId}/{reset}")
+    public void setLastClickedVideo(
+            @PathVariable("id") Long id,
+            @PathVariable("playlistId") Long playlistId,
+            @PathVariable("videoId") Long videoId,
+            @PathVariable("reset") boolean reset
+    ) {
+        userService.setLastClickedVideo(id, playlistId, videoId, reset);
+    }
+
+    @GetMapping(path = "{name}/{password}")
+    public User findUser(
+            @PathVariable("name") String name,
+            @PathVariable("password") String password
+    ) {
+        return userService.findUser(name, password);
+    }
+
+    @PostMapping 
     public void addUser(@RequestBody User user) {
         userService.addNewUser(user);
     }
 
-    @PutMapping(path = "{id}/{index}")
-    public void changeResource(
-            @RequestParam(required = false) String priority,
-            @RequestParam(required = false) String priorityLevel,
+
+    @GetMapping(path = "playlists/{userId}/{playlistId}")
+    public void getPlaylist(
+            @PathVariable("userId") Long userId,
+            @PathVariable("playlistId") Long playlistId
+    ) {
+        userService.getPlaylist(userId, playlistId);
+    }
+
+    @PutMapping(path = "{id}/{playlist}")
+    public void changePlaylist(
+            @RequestParam(required = false) String name,
             @PathVariable("id") Long id,
-            @PathVariable("index") int index
+            @PathVariable("playList") String playlist
             ) {
-        userService.changeResource(
-                priority,
-                priorityLevel,
+        userService.changePlaylist(
                 id,
-                index
+                playlist,
+                name
         );
     }
 
-    @PostMapping(path = "{id}")
-    public void addResource(
+    @PutMapping(path = "/sort/{id}/{playlistId}")
+    public void sortPlaylist(
             @PathVariable("id") Long id,
-            @RequestBody Source source
+            @PathVariable("playlistId") Long playlistId
     ) {
-        userService.addSource(id, source);
+        userService.sortPlaylist(
+                id,
+                playlistId
+        );
+    }
+
+    /*@PutMapping(path = "{id}")
+    public void changeResource(
+            @RequestParam() String preferredStyle,
+            @PathVariable("id") Long id
+    ) {
+        userService.changeStyling(id, preferredStyle);
+    }*/
+
+    @PostMapping(path = "{id}")
+    public void addPlaylist(
+            @PathVariable("id") Long id,
+            @RequestBody Playlist playlist
+    ) {
+        userService.addPlaylist(id, playlist);
+    }
+
+    @PostMapping(path = "{id}/{playlistId}")
+    public void addVideo(
+            @PathVariable("id") Long id,
+            @PathVariable("playlistId") Long playlistId,
+            @RequestBody Video video
+    ) {
+        userService.addVideo(id, playlistId, video);
     }
 
     @DeleteMapping(path = "{id}")
@@ -55,11 +110,21 @@ public class UserController {
         userService.removeUser(id);
     }
 
-    @DeleteMapping(path = "{id}/{index}")
-    public void removeResource(
+    @DeleteMapping(path = "{id}/{playlistId}")
+    public void removePlaylist(
             @PathVariable("id") Long id,
-            @PathVariable("index") int index
+            @PathVariable("playlistId") Long playlistId
     ) {
-        userService.removeResource(id, index);
+        userService.removePlaylist(id, playlistId);
     }
+
+    @DeleteMapping(path = "{id}/{playlistId}/{videoId}")
+    public void removeVideo(
+            @PathVariable("id") Long id,
+            @PathVariable("playlistId") Long playlistId,
+            @PathVariable("videoId") Long videoId
+    ) {
+        userService.removeVideo(id, playlistId, videoId);
+    }
+
 }

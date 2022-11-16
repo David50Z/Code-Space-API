@@ -1,6 +1,7 @@
 package webspace.demo.user;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,10 +29,14 @@ public class User {
 
     //@OneToOne(cascade=CascadeType.PERSIST) <or> @OneToOne(cascade=CascadeType.ALL) <-- for all operation
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "source", referencedColumnName = "id")
-    public List<Source> sources;
+    @JoinColumn(name = "Playlist", referencedColumnName = "id")
+    public List<Playlist> playlists = new ArrayList<Playlist>();
 
     private String preferedStyle;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "Video", referencedColumnName = "id")
+    private Video lastClickedVideo;
 
 
     public User(
@@ -40,7 +45,7 @@ public class User {
             String email,
             String password,
             String preferedStyle
-            //Source[] source
+            //Playlist[] source
     ) {
         this.id = id;
         this.name = name;
@@ -50,18 +55,30 @@ public class User {
         //this.sources = source;
     }
 
-    public User(
+    public User( 
             String name,
             String email,
             String password,
             String preferedStyle,
-            List<Source> source
+            List<Playlist> playlist
     ) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.preferedStyle = preferedStyle;
-        this.sources = source;
+        this.playlists = playlist;
+    }
+
+    public User(
+            String name,
+            String email,
+            String password,
+            String preferedStyle
+    ) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.preferedStyle = preferedStyle;
     }
 
     public User() {
@@ -84,9 +101,22 @@ public class User {
         return password;
     }
 
-    public String getPreferedStyle() {return preferedStyle;}
+    public String getPreferredStyle() {return preferedStyle;}
 
-    public List<Source> getSources() {
-        return sources;
+    public void setPreferredStyle(String preferredStyle){
+        this.preferedStyle = preferredStyle;
     }
+
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public Video getLastClickedVideo() {
+        return lastClickedVideo;
+    }
+
+    public void setLastClickedVideo(Video video) {
+        this.lastClickedVideo = video;
+    }
+
 }

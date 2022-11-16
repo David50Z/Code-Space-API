@@ -17,14 +17,12 @@ public class UserConfig {
                     "Davidfriedchicken@gmail.com",
                     "redred12",
                     "default",
-                    Arrays.asList(new Source(
-                            1L,
-                            "url",
-                            "img",
-                            "high",
-                            5
+                    Arrays.asList(new Playlist(
+                            "Java"
                     ))
             );
+
+            David.playlists.get(0).videos.add(new Video("https://www.youtube.com/watch?v=z81uQ87RnOU", "z81uQ87RnOU", "Galaxy something"));
 
             repository.save(David);
         };

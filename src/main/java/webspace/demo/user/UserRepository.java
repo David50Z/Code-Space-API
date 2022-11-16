@@ -10,7 +10,10 @@ import java.util.Optional;
 public interface UserRepository
         extends JpaRepository<User, Long> {
 
-    //THE WE REFFER USER AS U BECAUSE IT IS THE FIRST LETTER OF USER
+    //WE REFFER USER AS U BECAUSE IT IS THE FIRST LETTER OF USER
     @Query("SELECT u FROM User u WHERE u.email = ?1")
     Optional<User> findUserByEmail(String email);
+
+    @Query("SELECT u FROM User u WHERE u.name = ?1 AND u.password = ?2")
+    Optional<User> findUserByNameAndPassword(String name, String password);
 }

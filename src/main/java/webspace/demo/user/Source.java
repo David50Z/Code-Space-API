@@ -18,7 +18,7 @@ public class Source {
             generator = "source_sequence"
     )
 
-    Long id;
+    private Long id;
 
     private String url;
     private String img;
@@ -56,6 +56,9 @@ public class Source {
 
     }
 
+    public Long getId() {
+        return id;
+    }
     public String getUrl() {
         return url;
     }
