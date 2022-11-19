@@ -98,6 +98,10 @@ public class Video {
         this.videoId = videoId;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String getTitle() {
         return title;
     }
