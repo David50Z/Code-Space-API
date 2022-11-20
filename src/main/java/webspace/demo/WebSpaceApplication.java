@@ -19,7 +19,7 @@ public class WebSpaceApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/api/**")
-						.allowedOrigins("*")
+						.allowedOrigins("https://code-space-client.netlify.app")
 						.allowedMethods("*")
 						.allowedOrigins("localhost:3000")
 						.allowedOrigins("localhost:44394")
