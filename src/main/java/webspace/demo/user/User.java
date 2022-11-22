@@ -35,8 +35,8 @@ public class User {
     private String preferedStyle;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "Video", referencedColumnName = "id")
-    private Video lastClickedVideo;
+    @JoinColumn(name = "ClickedStuff", referencedColumnName = "id")
+    private LastVideo lastClickedVideo;
 
 
     public User(
@@ -111,11 +111,11 @@ public class User {
         return playlists;
     }
 
-    public Video getLastClickedVideo() {
+    public LastVideo getLastClickedVideo() {
         return lastClickedVideo;
     }
 
-    public void setLastClickedVideo(Video video) {
+    public void setLastClickedVideo(LastVideo video) {
         this.lastClickedVideo = video;
     }
 

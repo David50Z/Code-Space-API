@@ -154,6 +154,10 @@ public class UserService {
                 for (int z = 0; z < user.playlists.get(i).videos.size(); z++)
                     if (user.playlists.get(i).videos.get(z).getId() == videoId) {
                         videoFound = true;
+                        if(user.playlists.get(i).videos.get(z).getVideoId() == user.getLastClickedVideo().getVideoId()) {
+                            user.setLastClickedVideo(new LastVideo());
+                            userRepository.save(user);
+                        }
                         user.playlists.get(i).videos.remove(z);
                         userRepository.save(user);
                     }
@@ -260,13 +264,22 @@ public class UserService {
                         if (user.playlists.get(i).videos.get(z).getId() == videoId) {
                             videoFound = true;
 
-                            user.setLastClickedVideo(user.playlists.get(i).videos.get(z));
+                            Video video = user.playlists.get(i).videos.get(z);
+
+                            LastVideo lastVideo = new LastVideo(
+                                    video.getUrl(),
+                                    video.getVideoId(),
+                                    video.getTitle(),
+                                    "Test"
+                            );
+
+                            user.setLastClickedVideo(lastVideo);
                             userRepository.save(user);
                         }
                 }
             }
         } else {
-            user.setLastClickedVideo(new Video());
+            user.setLastClickedVideo(new LastVideo());
             userRepository.save(user);
         }
 

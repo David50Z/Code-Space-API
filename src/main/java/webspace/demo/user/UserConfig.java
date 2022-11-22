@@ -9,7 +9,7 @@ import java.util.Arrays;
 @Configuration
 public class UserConfig {
 
-    /*@Bean
+    @Bean
     CommandLineRunner commandLineRunner(UserRepository repository) {
         return args-> {
             User David = new User(
@@ -26,5 +26,5 @@ public class UserConfig {
 
             repository.save(David);
         };
-    }*/
+    }
 }

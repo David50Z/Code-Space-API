@@ -22,13 +22,14 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @PutMapping(path = "{id}/{playlistId}/{videoId}/{reset}")
+    @PutMapping(path = "{id}/{playlistId}/{videoId}")
     public void setLastClickedVideo(
             @PathVariable("id") Long id,
             @PathVariable("playlistId") Long playlistId,
-            @PathVariable("videoId") Long videoId,
-            @PathVariable("reset") boolean reset
+            @PathVariable("videoId") Long videoId
+
     ) {
+        boolean reset = false;
         userService.setLastClickedVideo(id, playlistId, videoId, reset);
     }
 

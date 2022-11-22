@@ -1,22 +1,21 @@
 package webspace.demo.user;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 
 @Entity
 @Table
-public class Video {
+public class LastVideo {
 
     @Id
     @SequenceGenerator(
-            name = "video_sequence",
-            sequenceName = "video_sequence",
+            name = "clickedStuff_sequence",
+            sequenceName = "clickedStuff_sequence",
             allocationSize = 1
     )
 
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "video_sequence"
+            generator = "clickedStuff_sequence"
     )
 
     private Long id;
@@ -27,8 +26,10 @@ public class Video {
 
     private String title;
 
+    private String test = "Yoooo";
 
-    Video(
+
+    LastVideo(
             String url,
             String videoId
 
@@ -51,15 +52,17 @@ public class Video {
         }*/
     }
 
-    Video(
+    LastVideo(
             String url,
             String videoId,
-            String videoTitle
+            String videoTitle,
+            String test
 
     ) {
         this.url = url;
         this.videoId = videoId;
         this.title = videoTitle;
+        this.test = test;
         /*String id = "";
         for(int i = url.length() - 1; i > -1; i--) {
             if(url.charAt(i) == '=') {
@@ -76,14 +79,15 @@ public class Video {
         }*/
     }
 
-    Video() {
+    LastVideo() {
 
     }
 
-
-    public Long getId() {
-        return id;
+    public String getTest() {
+        return test;
     }
+
+    public Long getId() {return id;}
 
     public String getUrl() {
         return url;
@@ -109,5 +113,4 @@ public class Video {
     public void setTitle(String title) {
         this.title = title;
     }
-
 }
